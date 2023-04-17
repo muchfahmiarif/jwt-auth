@@ -14,4 +14,4 @@ First we need to install the dependencies needed, required dependencies are:
 7. Sequelize
 8. Cookie-parser
 
-After that we create file `index.js` and import express js. Install nodemon for folder backend and add script in `package.json` with `nodemon index.js`
+After that we create file `index.js` and import express js. Install nodemon for folder backend and add script in `package.json` with `nodemon index.js`. You need for create database in MySQL.
