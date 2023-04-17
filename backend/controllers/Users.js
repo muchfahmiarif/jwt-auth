@@ -12,12 +12,17 @@ const getUsers = async (req, res) => {
 
 const Register = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
+  // For Validation password
   if (password !== confirmPassword) {
     return res.status(400).json({
       message: "Password and Confirm Password must be same",
     });
   }
-  const salt = await bcrypt.genSalt();
+
+  // Salt for hashing password
+  const salt = await bcrypt.genSalt(10);
+
+  // Hashing password
   const hashPassword = await bcrypt.hash(password, salt);
   try {
     await Users.create({
