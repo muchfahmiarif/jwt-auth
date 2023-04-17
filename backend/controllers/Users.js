@@ -8,3 +8,5 @@ const getUsers = async (req, res) => {
     console.log(error);
   }
 };
+
+export { getUsers };
