@@ -1,4 +1,5 @@
 import Users from "../models/UserModel.js";
+import bcrypt from "bcrypt";
 
 const getUsers = async (req, res) => {
   try {
@@ -9,4 +10,27 @@ const getUsers = async (req, res) => {
   }
 };
 
-export { getUsers };
+const Register = async (req, res) => {
+  const { name, email, password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      message: "Password and Confirm Password must be same",
+    });
+  }
+  const salt = await bcrypt.genSalt();
+  const hashPassword = await bcrypt.hash(password, salt);
+  try {
+    await Users.create({
+      name: name,
+      email: email,
+      password: hashPassword,
+    });
+    res.status(201).json({
+      message: "User created successfully",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { getUsers, Register };
