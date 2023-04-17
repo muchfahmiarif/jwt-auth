@@ -1,10 +1,12 @@
 import express from "express";
 import db from "./config/Database.js";
 import router from "./routes/index.js";
+import dotenv from "dotenv";
 
 // For Testing
 // import Users from "./models/UserModel.js";
 
+dotenv.config();
 const app = express();
 
 try {
