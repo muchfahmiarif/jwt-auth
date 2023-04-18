@@ -39,7 +39,7 @@ const Register = async (req, res) => {
   }
 };
 
-const Login = async (req, rest) => {
+const Login = async (req, res) => {
   try {
     const user = await Users.findAll({
       where: {
@@ -97,6 +97,16 @@ const Login = async (req, rest) => {
         },
       }
     );
+
+    // Http Only Cookie yang akan dikirimkan ke REST Client
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 1 hari
+      // secure: true, // hanya bisa diakses melalui https
+    });
+
+    // Kirimkan access token ke REST Client
+    res.json({ accessToken: accessToken });
   } catch (error) {
     res.status(404).json({
       // Jika email tidak ditemukan
