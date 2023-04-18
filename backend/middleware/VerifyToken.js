@@ -15,3 +15,5 @@ const verifyToken = (req, res, next) => {
     next(); // untuk melanjutkan ke route yang akan diakses
   });
 };
+
+export default verifyToken;
