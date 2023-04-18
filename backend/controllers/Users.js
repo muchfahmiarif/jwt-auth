@@ -4,7 +4,9 @@ import jwt from "jsonwebtoken";
 
 const getUsers = async (req, res) => {
   try {
-    const users = await Users.findAll();
+    const users = await Users.findAll({
+      attributes: ["id", "name", "email"],
+    });
     res.status(200).json(users);
   } catch (error) {
     console.log(error);
