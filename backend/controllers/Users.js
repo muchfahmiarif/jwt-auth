@@ -117,4 +117,36 @@ const Login = async (req, res) => {
   }
 };
 
-export { getUsers, Register, Login };
+const Logout = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken; // get refresh token from cookie
+  if (!refreshToken) {
+    return res.sendStatus(204); // if there isn't any token return 204 (no content)
+  }
+  const user = await Users.findAll({
+    // find user in database
+    where: {
+      refresh_token: refreshToken, // find user by refreshToken
+    },
+  });
+  if (!user[0]) {
+    return res.sendStatus(204); // if user doesn't exist return 204 (no content)
+  }
+  if (!user[0]) {
+    return res.sendStatus(204); // if user doesn't exist return 204 (no content)
+  }
+  const userId = user[0].id;
+  await Users.update(
+    {
+      refresh_token: null,
+    },
+    {
+      where: {
+        id: userId,
+      },
+    }
+  );
+  res.clearCookie("refreshToken"); // clear cookie
+  res.sendStatus(200); // return 200 (ok)
+};
+
+export { getUsers, Register, Login, Logout };
