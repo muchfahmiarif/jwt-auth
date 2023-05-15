@@ -24,7 +24,7 @@ const Register = () => {
     } catch (error) {
       if (error.response) {
         // setMsg(error.response.data.message);
-        console.log(error.response.data.message); // message from backend
+        setMessage(error.response.data.message); // message from backend
       }
     }
   };
@@ -36,6 +36,7 @@ const Register = () => {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-4-desktop">
+                <p className="has-text-centered">{message}</p>
                 <form action="" onSubmit={Register} className="box">
                   <div className="field mt-5">
                     <label htmlFor="" className="label">
