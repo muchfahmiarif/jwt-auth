@@ -31,7 +31,7 @@ const Login = () => {
           <div className="container">
             <div className="columns is-centered">
               <div className="column is-4-desktop">
-                <form action="" className="box">
+                <form action="" className="box" onSubmit={Auth}>
                   <p className="has-text-centered">{message}</p>
                   <div className="field mt-5">
                     <label htmlFor="" className="label">
