@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [passowrd, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const Auth = async (e) => {
+    e.preventDefault(); // while on submit page will not refresh
+    try {
+      await axios.post(`http://localhost:5000/login`, {
+        email: email,
+        password: passowrd,
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      if (error.response) {
+        // setMsg(error.response.data.message);
+        setMessage(error.response.data.message); // message from backend
+      }
+    }
+  };
   return (
     <div>
       <section className="hero has-background-grey-light is-fullheight is-fullwidth">
@@ -9,12 +32,21 @@ const Login = () => {
             <div className="columns is-centered">
               <div className="column is-4-desktop">
                 <form action="" className="box">
+                  <p className="has-text-centered">{message}</p>
                   <div className="field mt-5">
                     <label htmlFor="" className="label">
                       Email or Password
                     </label>
                     <div className="controls">
-                      <input type="text" className="input" placeholder="username" />
+                      <input
+                        type="text"
+                        className="input"
+                        placeholder="username"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="field mt-5">
@@ -22,7 +54,15 @@ const Login = () => {
                       Password
                     </label>
                     <div className="controls">
-                      <input type="password" className="input" placeholder="******" />
+                      <input
+                        type="password"
+                        className="input"
+                        placeholder="******"
+                        value={passowrd}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="field mt-5">
