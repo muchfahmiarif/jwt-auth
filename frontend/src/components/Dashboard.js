@@ -17,12 +17,14 @@ const Dashboard = () => {
       setToken(response.data.accessToken);
       const decoded = jwt_decode(response.data.accessToken);
       console.log(decoded);
+
+      setName(decoded.name);
     } catch (error) {}
   };
 
   return (
     <div className="container mt-5">
-      <h1>Welcome Back : </h1>
+      <h1>Welcome Back : {name}</h1>
     </div>
   );
 };
